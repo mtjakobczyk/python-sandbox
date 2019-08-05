@@ -1,0 +1,65 @@
+﻿road_type;voivodeship;no_incident;no_accident
+A;Pomeranian;60;30
+A;Kuyavian-Pomeranian;60;35
+A;Lodz;50;30
+A;Silesian;50;25
+A;Lubusz;60;20
+A;Greater Poland;50;25
+A;Masovian;40;20
+A;Lublin;70;15
+A;West Pomeranian;60;20
+A;Lower Silesian;50;25
+A;Opole;60;20
+A;Lesser Poland;50;15
+A;Subcarpathian;80;20
+A;Warmian-Masurian;70;15
+A;Swietokrzyskie;60;20
+A;Podlaskie;70;20
+S;Pomeranian;40;30
+S;Kuyavian-Pomeranian;40;35
+S;Lodz;50;30
+S;Silesian;30;25
+S;Lubusz;60;20
+S;Greater Poland;50;25
+S;Masovian;40;20
+S;Lublin;50;15
+S;West Pomeranian;40;20
+S;Lower Silesian;45;25
+S;Opole;55;20
+S;Lesser Poland;45;15
+S;Subcarpathian;45;20
+S;Warmian-Masurian;40;15
+S;Swietokrzyskie;50;20
+S;Podlaskie;45;20
+GP;Pomeranian;25;15
+GP;Kuyavian-Pomeranian;20;15
+GP;Lodz;40;20
+GP;Silesian;30;15
+GP;Lubusz;45;15
+GP;Greater Poland;35;20
+GP;Masovian;25;15
+GP;Lublin;20;10
+GP;West Pomeranian;30;15
+GP;Lower Silesian;25;10
+GP;Opole;35;15
+GP;Lesser Poland;25;20
+GP;Subcarpathian;30;15
+GP;Warmian-Masurian;40;20
+GP;Swietokrzyskie;30;15
+GP;Podlaskie;35;10
+G;Pomeranian;15;15
+G;Kuyavian-Pomeranian;20;15
+G;Lodz;15;20
+G;Silesian;20;15
+G;Lubusz;15;15
+G;Greater Poland;20;20
+G;Masovian;15;15
+G;Lublin;20;10
+G;West Pomeranian;15;15
+G;Lower Silesian;20;10
+G;Opole;25;15
+G;Lesser Poland;15;20
+G;Subcarpathian;20;15
+G;Warmian-Masurian;25;20
+G;Swietokrzyskie;20;15
+G;Podlaskie;25;10

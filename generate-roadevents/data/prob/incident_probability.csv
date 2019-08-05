@@ -1,0 +1,53 @@
+﻿event_name;road_type;no_event;count_mean;count_stdev
+no seatbelts;A;90;3;2
+no seatbelts;S;80;5;2
+no seatbelts;GP;50;15;2
+no seatbelts;G;30;15;3
+road obstruction;A;90;3;2
+road obstruction;S;70;3;2
+road obstruction;GP;60;4;3
+road obstruction;G;60;4;3
+malfunctioning vehicle;A;50;3;2
+malfunctioning vehicle;S;50;3;2
+malfunctioning vehicle;GP;30;5;3
+malfunctioning vehicle;G;30;5;3
+no lights;A;60;2;1
+no lights;S;60;2;1
+no lights;GP;40;4;2
+no lights;G;40;4;2
+unlicensed driving;A;80;2;1
+unlicensed driving;S;80;2;1
+unlicensed driving;GP;70;3;2
+unlicensed driving;G;60;4;2
+no license plates;A;70;2;1
+no license plates;S;70;2;1
+no license plates;GP;50;2;1
+no license plates;G;50;2;1
+forcing the right of way;A;90;2;1
+forcing the right of way;S;90;2;1
+forcing the right of way;GP;50;4;2
+forcing the right of way;G;50;4;2
+lane departure;A;70;2;1
+lane departure;S;70;2;1
+lane departure;GP;60;3;2
+lane departure;G;60;3;2
+wrong-way;A;90;1;1
+wrong-way;S;90;1;1
+wrong-way;GP;70;2;1
+wrong-way;G;60;2;1
+overtaking;A;40;5;3
+overtaking;S;40;5;3
+overtaking;GP;30;7;4
+overtaking;G;30;7;4
+speeding;A;30;10;5
+speeding;S;30;10;5
+speeding;GP;20;12;7
+speeding;G;20;12;7
+drunk driving;A;70;4;3
+drunk driving;S;70;4;3
+drunk driving;GP;50;6;4
+drunk driving;G;30;6;4
+driving on drugs;A;90;2;1
+driving on drugs;S;90;2;1
+driving on drugs;GP;70;3;2
+driving on drugs;G;70;3;2

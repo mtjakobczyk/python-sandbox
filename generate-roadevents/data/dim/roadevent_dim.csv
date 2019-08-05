@@ -1,0 +1,25 @@
+﻿event_dim_id;event_name;event_subcategory;event_category
+1;no seatbelts;safety violation;traffic incident
+2;road obstruction;safety violation;traffic incident
+3;malfunctioning vehicle;safety violation;traffic incident
+4;no lights;safety violation;traffic incident
+5;unlicensed driving;license issues;traffic incident
+6;no license plates;license issues;traffic incident
+7;forcing the right of way;traffic rules;traffic incident
+8;lane departure;traffic rules;traffic incident
+9;wrong-way;traffic rules;traffic incident
+10;overtaking;traffic rules;traffic incident
+11;speeding;traffic rules;traffic incident
+12;drunk driving;intoxication;traffic incident
+13;driving on drugs;intoxication;traffic incident
+14;head-on collision;collision;traffic accident
+15;rear-end;collision;traffic accident
+16;side collision;collision;traffic accident
+17;side-road-tree hit;collision;traffic accident
+18;rollover;other accident;traffic accident
+19;run-off-road;other accident;traffic accident
+20;pedestrian hit;hit-by-car;traffic accident
+21;cyclist hit;hit-by-car;traffic accident
+22;animal hit;hit-by-car;traffic accident
+23;level crossing accident;traffic disaster;traffic accident
+24;multi-car collision;traffic disaster;traffic accident
