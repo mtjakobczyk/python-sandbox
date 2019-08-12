@@ -20,40 +20,40 @@ def gre(args):
     with open(args.date_dim_path, 'r') as date_dim_f:
         date_dim_f.readline() # Skip header
         for dt in date_dim_f:
-            dt_list = dt.strip().split(';')
+            dt_list = dt.strip().split(',')
             dt_id = dt_list[0]
             dt_date = dt_list[1]
             date_dim_list.append(dt_id)
     print('Loaded '+str(len(date_dim_list))+' Time Dimension rows')
 
-    # Location Dimension
-    location_dim_list = []
-    with open(args.loc_dim_path, 'r') as loc_dim_f:
-        loc_dim_f.readline() # Skip header
-        for loc in loc_dim_f:
-            loc_list = loc.strip().split(';')
-            loc_id = loc_list[0]
-            loc_road = loc_list[1]
-            loc_type = loc_list[2]
-            loc_voivode = loc_list[3]
-            ld = LocationDim(loc_id, loc_road, loc_type, loc_voivode)
-            location_dim_list.append(ld)
-    print('Loaded '+str(len(location_dim_list))+' Location Dimension rows')
+    # Road Dimension
+    road_dim_list = []
+    with open(args.loc_dim_path, 'r') as road_dim_f:
+        road_dim_f.readline() # Skip header
+        for road in road_dim_f:
+            road_list = road.strip().split(',')
+            segment_id = road_list[0]
+            road_id = road_list[6]
+            segment_type = road_list[2]
+            segment_voivodeship = road_list[3]
+            ld = LocationDim(segment_id, road_id, segment_type, segment_voivodeship)
+            road_dim_list.append(ld)
+    print('Loaded '+str(len(road_dim_list))+' Location Dimension rows')
 
-    # Road Events Dimension
+    # Event Dimension
     events_dim_incident_list = []
     events_dim_accident_list = []
     with open(args.rde_dim_path, 'r') as rde_dim_f:
         rde_dim_f.readline() # Skip header
         for rde in rde_dim_f:
-            rde_list = rde.strip().split(';')
-            rde_id = rde_list[0]
-            rde_event_name = rde_list[1]
-            rde_event_category = rde_list[3]
-            rd = RoadEventDim(rde_id, rde_event_name, rde_event_category)
-            if rde_event_category == 'traffic incident':
+            rde_list = rde.strip().split(',')
+            event_id = rde_list[0]
+            event_name = rde_list[1]
+            class_name = rde_list[5]
+            rd = RoadEventDim(event_id, event_name, class_name)
+            if class_name == 'traffic incident':
                 events_dim_incident_list.append(rd)
-            if rde_event_category == 'traffic accident':
+            if class_name == 'traffic accident':
                 events_dim_accident_list.append(rd)
     print('Loaded '+str(len(events_dim_incident_list))+' Road Events (incidents) Dimension rows')
     print('Loaded '+str(len(events_dim_accident_list))+' Road Events (accidents) Dimension rows')
@@ -106,36 +106,36 @@ def gre(args):
 
     # Write fact file header
     with open(args.fact_file_path, 'w') as fact_file_f:
-        fact_file_f.write('date_dim_id;location_dim_id;road_event_dim_id;count;injured;killed\n')
+        fact_file_f.write('time_dim_id;road_dim_id;event_dim_id;count;injured;killed\n')
 
         fact_cnt = 0
         # For each date
         for dt in date_dim_list:
-            for loc in location_dim_list:
+            for road in road_dim_list:
                 # Evaluate no incidents at all at the processed location
-                no_incident = evaluate_probability(noevent_dict[loc.getbk()].no_incident_prob)
+                no_incident = evaluate_probability(noevent_dict[road.getbk()].no_incident_prob)
                 if no_incident:
                     continue
                 # Generate incidents
                 for incident in events_dim_incident_list:
                     # Evaluate no incident of a specific type at the processed location
-                    incident_prob_key = incident.name + ':' + loc.road_type
+                    incident_prob_key = incident.name + ':' + road.road_type
                     incident_probability = incident_probability_dict[incident_prob_key]
                     no_incident = evaluate_probability(incident_probability.no_event)
                     if no_incident:
                         continue
                     # Generate incident count for the specific incident type at the processed location
                     incident_count = int(incident_probability.random_count())
-                    fact_file_f.write(dt+';'+loc.location_id+';'+incident.id+';'+str(incident_count)+';0;0\n')
+                    fact_file_f.write(dt+';'+road.location_id+';'+incident.id+';'+str(incident_count)+';0;0\n')
                     fact_cnt += 1
                 # Evaluate no accidents at all at the processed location
-                no_accident = evaluate_probability(noevent_dict[loc.getbk()].no_accident_prob)
+                no_accident = evaluate_probability(noevent_dict[road.getbk()].no_accident_prob)
                 if no_accident:
                     continue
                 # Generate accidents
                 for accident in events_dim_accident_list:
                     # Evaluate no accidents of a specific type at the processed location
-                    accident_prob_key = accident.name + ':' + loc.road_type
+                    accident_prob_key = accident.name + ':' + road.road_type
                     accident_probability = accident_probability_dict[accident_prob_key]
                     no_accident = evaluate_probability(accident_probability.no_event)
                     if no_accident:
@@ -145,7 +145,7 @@ def gre(args):
                     accident_injured = accident_probability.random_injured()
                     accident_killed = accident_probability.random_killed()
                     counts_str = str(accident_count)+';'+str(accident_injured)+';'+str(accident_killed)
-                    fact_file_f.write(dt+';'+loc.location_id+';'+accident.id+';'+counts_str+'\n')
+                    fact_file_f.write(dt+';'+road.location_id+';'+accident.id+';'+counts_str+'\n')
                     fact_cnt += 1
     print('Written '+str(fact_cnt)+' fact rows')
 
