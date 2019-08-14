@@ -103,51 +103,65 @@ def gre(args):
             accident_probability_dict[accpr.bk] = accpr
 
     # Load Probabilities and distributions
+    fact_lines = []
+    fact_cnt = 0
+    first_run = True
+    current_year_month_dt = ''
+    # For each date
+    for dt in date_dim_list:
 
-    # Write fact file header
-    with open(args.fact_file_path, 'w') as fact_file_f:
-        fact_file_f.write('time_dim_id;road_dim_id;event_dim_id;count;injured;killed\n')
+        if not first_run:
+            if current_year_month_dt != dt[:4]:
+                # Write Fact file
+                fact_files_filename = args.fact_files_dir + '/facts.' + str(current_year_month_dt) + '.csv'
+                with open(fact_files_filename, 'w') as fact_file_f:
+                    fact_file_f.write('time_dim_id;road_dim_id;event_dim_id;count;injured;killed\n')
+                    for line in fact_lines:
+                        fact_file_f.write(line)
+                # Reset List
+                print('Written ' + str(len(fact_lines)) + ' fact rows to ' + fact_files_filename)
+                fact_lines = []
 
-        fact_cnt = 0
-        # For each date
-        for dt in date_dim_list:
-            for road in road_dim_list:
-                # Evaluate no incidents at all at the processed location
-                no_incident = evaluate_probability(noevent_dict[road.getbk()].no_incident_prob)
+        first_run = False
+        current_year_month_dt = dt[:4]
+
+        for road in road_dim_list:
+            # Evaluate no incidents at all at the processed location
+            no_incident = evaluate_probability(noevent_dict[road.getbk()].no_incident_prob)
+            if no_incident:
+                continue
+            # Generate incidents
+            for incident in events_dim_incident_list:
+                # Evaluate no incident of a specific type at the processed location
+                incident_prob_key = incident.name + ':' + road.road_type
+                incident_probability = incident_probability_dict[incident_prob_key]
+                no_incident = evaluate_probability(incident_probability.no_event)
                 if no_incident:
                     continue
-                # Generate incidents
-                for incident in events_dim_incident_list:
-                    # Evaluate no incident of a specific type at the processed location
-                    incident_prob_key = incident.name + ':' + road.road_type
-                    incident_probability = incident_probability_dict[incident_prob_key]
-                    no_incident = evaluate_probability(incident_probability.no_event)
-                    if no_incident:
-                        continue
-                    # Generate incident count for the specific incident type at the processed location
-                    incident_count = int(incident_probability.random_count())
-                    fact_file_f.write(dt+';'+road.location_id+';'+incident.id+';'+str(incident_count)+';0;0\n')
-                    fact_cnt += 1
-                # Evaluate no accidents at all at the processed location
-                no_accident = evaluate_probability(noevent_dict[road.getbk()].no_accident_prob)
+                # Generate incident count for the specific incident type at the processed location
+                incident_count = int(incident_probability.random_count())
+                fact_lines.append(dt+';'+road.location_id+';'+incident.id+';'+str(incident_count)+';0;0\n')
+                fact_cnt += 1
+            # Evaluate no accidents at all at the processed location
+            no_accident = evaluate_probability(noevent_dict[road.getbk()].no_accident_prob)
+            if no_accident:
+                continue
+            # Generate accidents
+            for accident in events_dim_accident_list:
+                # Evaluate no accidents of a specific type at the processed location
+                accident_prob_key = accident.name + ':' + road.road_type
+                accident_probability = accident_probability_dict[accident_prob_key]
+                no_accident = evaluate_probability(accident_probability.no_event)
                 if no_accident:
                     continue
-                # Generate accidents
-                for accident in events_dim_accident_list:
-                    # Evaluate no accidents of a specific type at the processed location
-                    accident_prob_key = accident.name + ':' + road.road_type
-                    accident_probability = accident_probability_dict[accident_prob_key]
-                    no_accident = evaluate_probability(accident_probability.no_event)
-                    if no_accident:
-                        continue
-                    # Generate accident, injured and killed counts for the specific accident type at the location
-                    accident_count = accident_probability.random_count()
-                    accident_injured = accident_probability.random_injured()
-                    accident_killed = accident_probability.random_killed()
-                    counts_str = str(accident_count)+';'+str(accident_injured)+';'+str(accident_killed)
-                    fact_file_f.write(dt+';'+road.location_id+';'+accident.id+';'+counts_str+'\n')
-                    fact_cnt += 1
-    print('Written '+str(fact_cnt)+' fact rows')
+                # Generate accident, injured and killed counts for the specific accident type at the location
+                accident_count = accident_probability.random_count()
+                accident_injured = accident_probability.random_injured()
+                accident_killed = accident_probability.random_killed()
+                counts_str = str(accident_count)+';'+str(accident_injured)+';'+str(accident_killed)
+                fact_lines.append(dt+';'+road.location_id+';'+accident.id+';'+counts_str+'\n')
+                fact_cnt += 1
+    print('Generated '+str(fact_cnt)+' fact rows')
 
 
 def main():
@@ -158,7 +172,7 @@ def main():
     parser.add_argument("--noevent_prob_path", help="No Event Probability File", dest="noevent_prob_path", type=str, required=True)
     parser.add_argument("--incident_prob_path", help="Incident Probability File", dest="incident_prob_path", type=str, required=True)
     parser.add_argument("--accident_prob_path", help="Accident Probability File", dest="accident_prob_path", type=str, required=True)
-    parser.add_argument("--fact_file", help="Fact Table File path", dest="fact_file_path", type=str, required=True)
+    parser.add_argument("--fact_files_dir", help="Fact Files dir", dest="fact_files_dir", type=str, required=True)
     gre(parser.parse_args())
 
 
