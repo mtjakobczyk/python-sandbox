@@ -111,16 +111,11 @@ def gre(args):
     for dt in date_dim_list:
 
         if not first_run:
-            if current_year_month_dt != dt[:4]:
-                # Write Fact file
-                fact_files_filename = args.fact_files_dir + '/facts.' + str(current_year_month_dt) + '.csv'
-                with open(fact_files_filename, 'w') as fact_file_f:
-                    fact_file_f.write('time_dim_id;road_dim_id;event_dim_id;count;injured;killed\n')
-                    for line in fact_lines:
-                        fact_file_f.write(line)
-                # Reset List
-                print('Written ' + str(len(fact_lines)) + ' fact rows to ' + fact_files_filename)
-                fact_lines = []
+            next_year_month_dt = dt[:4]
+            if current_year_month_dt != next_year_month_dt:
+                if current_year_month_dt[2:4] in ["06","12"]:
+                    write_fact_file(args.fact_files_dir, fact_lines, current_year_month_dt)
+                    fact_lines = []
 
         first_run = False
         current_year_month_dt = dt[:4]
@@ -161,7 +156,24 @@ def gre(args):
                 counts_str = str(accident_count)+';'+str(accident_injured)+';'+str(accident_killed)
                 fact_lines.append(dt+';'+road.location_id+';'+accident.id+';'+counts_str+'\n')
                 fact_cnt += 1
+    write_fact_file(args.fact_files_dir, fact_lines, current_year_month_dt)
     print('Generated '+str(fact_cnt)+' fact rows')
+
+
+def write_fact_file(fact_files_dir, fact_lines, current_year_month_dt):
+    half_year_month_map = {
+        '06': 'H1',
+        '12': 'H2'
+    }
+    current_year_dt = current_year_month_dt[:2]
+    current_month_dt = current_year_month_dt[2:4]
+    fact_file_suffix = current_year_dt + half_year_month_map[current_month_dt]
+    fact_files_filename = fact_files_dir + '/facts.' + fact_file_suffix + '.csv'
+    with open(fact_files_filename, 'w') as fact_file_f:
+        fact_file_f.write('time_dim_id;road_dim_id;event_dim_id;count;injured;killed\n')
+        for line in fact_lines:
+            fact_file_f.write(line)
+    print('Written ' + str(len(fact_lines)) + ' fact rows to ' + fact_files_filename)
 
 
 def main():
