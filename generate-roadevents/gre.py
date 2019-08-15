@@ -89,7 +89,7 @@ def gre(args):
     with open(args.accident_prob_path, 'r') as accident_prob_f:
         accident_prob_f.readline()
         for accident_prob in accident_prob_f:
-            accident_prob_list = accident_prob.strip().split(';')
+            accident_prob_list = accident_prob.strip().split(',')
             event_name = accident_prob_list[0]
             road_type = accident_prob_list[1]
             no_event = accident_prob_list[2]
@@ -135,7 +135,7 @@ def gre(args):
                     continue
                 # Generate incident count for the specific incident type at the processed location
                 incident_count = int(incident_probability.random_count())
-                fact_lines.append(dt+';'+road.location_id+';'+incident.id+';'+str(incident_count)+';0;0\n')
+                fact_lines.append(dt+','+road.location_id+','+incident.id+','+str(incident_count)+',0,0\n')
                 fact_cnt += 1
             # Evaluate no accidents at all at the processed location
             no_accident = evaluate_probability(noevent_dict[road.getbk()].no_accident_prob)
@@ -153,8 +153,8 @@ def gre(args):
                 accident_count = accident_probability.random_count()
                 accident_injured = accident_probability.random_injured()
                 accident_killed = accident_probability.random_killed()
-                counts_str = str(accident_count)+';'+str(accident_injured)+';'+str(accident_killed)
-                fact_lines.append(dt+';'+road.location_id+';'+accident.id+';'+counts_str+'\n')
+                counts_str = str(accident_count)+','+str(accident_injured)+','+str(accident_killed)
+                fact_lines.append(dt+','+road.location_id+','+accident.id+','+counts_str+'\n')
                 fact_cnt += 1
     write_fact_file(args.fact_files_dir, fact_lines, current_year_month_dt)
     print('Generated '+str(fact_cnt)+' fact rows')
@@ -170,7 +170,7 @@ def write_fact_file(fact_files_dir, fact_lines, current_year_month_dt):
     fact_file_suffix = current_year_dt + half_year_month_map[current_month_dt]
     fact_files_filename = fact_files_dir + '/facts.' + fact_file_suffix + '.csv'
     with open(fact_files_filename, 'w') as fact_file_f:
-        fact_file_f.write('time_dim_id;road_dim_id;event_dim_id;count;injured;killed\n')
+        fact_file_f.write('time_dim_id,road_dim_id,event_dim_id,occurrence,injured,killed\n')
         for line in fact_lines:
             fact_file_f.write(line)
     print('Written ' + str(len(fact_lines)) + ' fact rows to ' + fact_files_filename)

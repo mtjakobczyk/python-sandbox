@@ -1,45 +1,45 @@
-﻿event_name;road_type;no_event;count_mean;count_stdev;injured_mean;injured_stdev;killed_mean;killed_stdev
-head-on collision;A;95;2;1;4;2;4;2
-head-on collision;S;95;2;1;4;2;4;2
-head-on collision;GP;50;5;2;8;5;4;1
-head-on collision;G;40;5;2;8;5;4;1
-rear-end;A;50;3;2;6;3;2;1
-rear-end;S;60;3;2;6;3;2;1
-rear-end;GP;40;4;3;8;4;3;1
-rear-end;G;40;4;3;8;4;3;1
-side collision;A;40;4;2;6;4;2;1
-side collision;S;40;4;2;6;4;2;1
-side collision;GP;50;10;6;10;5;3;2
-side collision;G;45;10;6;10;5;3;2
-side-road-tree hit;A;95;1;1;2;1;2;1
-side-road-tree hit;S;95;1;1;2;1;2;1
-side-road-tree hit;GP;25;3;2;4;2;2;1
-side-road-tree hit;G;20;3;2;4;2;2;1
-rollover;A;60;2;1;4;3;2;1
-rollover;S;60;2;1;4;3;2;1
-rollover;GP;50;3;2;4;3;2;1
-rollover;G;45;3;2;4;3;2;1
-run-off-road;A;30;4;3;5;3;4;2
-run-off-road;S;30;4;3;5;3;4;2
-run-off-road;GP;30;6;4;8;5;3;2
-run-off-road;G;30;6;4;8;5;3;2
-pedestrian hit;A;95;1;1;2;1;1;1
-pedestrian hit;S;95;1;1;2;1;1;1
-pedestrian hit;GP;50;4;2;4;2;4;2
-pedestrian hit;G;25;4;2;4;2;4;2
-cyclist hit;A;95;1;1;1;1;1;1
-cyclist hit;S;95;1;1;1;1;1;1
-cyclist hit;GP;70;2;1;2;1;2;1
-cyclist hit;G;40;2;1;2;1;2;1
-animal hit;A;95;1;1;2;1;2;1
-animal hit;S;85;1;1;2;1;2;1
-animal hit;GP;65;2;1;2;1;2;1
-animal hit;G;65;2;1;2;1;2;1
-level crossing accident;A;100;0;0;0;0;0;0
-level crossing accident;S;100;0;0;0;0;0;0
-level crossing accident;GP;80;2;1;4;2;4;2
-level crossing accident;G;80;2;1;4;2;4;2
-multi-car collision;A;30;3;2;10;5;3;2
-multi-car collision;S;30;3;2;10;5;3;2
-multi-car collision;GP;40;4;2;8;4;2;1
-multi-car collision;G;40;4;2;8;4;2;1
+﻿event_name,road_type,no_event,count_mean,count_stdev,injured_mean,injured_stdev,killed_mean,killed_stdev
+head-on collision,A,97,2,1,4,2,2,2
+head-on collision,S,97,2,1,4,2,2,2
+head-on collision,GP,80,3,2,4,3,2,1
+head-on collision,G,80,3,2,4,3,2,1
+rear-end,A,90,1,2,6,3,1,2
+rear-end,S,90,1,2,6,3,1,2
+rear-end,GP,80,4,3,4,4,1,1
+rear-end,G,80,4,3,4,4,1,1
+side collision,A,90,1,2,6,4,1,1
+side collision,S,90,1,2,6,4,1,1
+side collision,GP,75,3,6,4,5,1,3
+side collision,G,75,3,6,4,5,1,3
+side-road-tree hit,A,99,1,1,2,1,2,1
+side-road-tree hit,S,99,1,1,2,1,2,1
+side-road-tree hit,GP,85,2,1,2,3,2,2
+side-road-tree hit,G,85,2,1,2,3,2,2
+rollover,A,90,1,2,4,3,2,1
+rollover,S,90,1,2,4,3,2,1
+rollover,GP,85,2,3,2,3,1,2
+rollover,G,85,2,3,2,3,1,2
+run-off-road,A,90,1,1,3,3,2,2
+run-off-road,S,90,1,1,3,3,2,2
+run-off-road,GP,70,2,2,4,5,3,2
+run-off-road,G,70,2,2,4,5,3,2
+pedestrian hit,A,99,1,1,2,1,1,1
+pedestrian hit,S,99,1,1,2,1,1,1
+pedestrian hit,GP,85,2,1,2,2,2,2
+pedestrian hit,G,75,2,1,2,2,2,2
+cyclist hit,A,99,1,1,1,1,1,1
+cyclist hit,S,99,1,1,1,1,1,1
+cyclist hit,GP,90,2,1,2,1,2,1
+cyclist hit,G,80,2,1,2,1,2,1
+animal hit,A,99,1,1,2,2,1,1
+animal hit,S,99,1,1,2,2,1,1
+animal hit,GP,95,2,1,2,2,1,1
+animal hit,G,90,2,1,2,2,1,1
+level crossing accident,A,100,0,0,0,0,0,0
+level crossing accident,S,100,0,0,0,0,0,0
+level crossing accident,GP,95,1,1,2,2,2,1
+level crossing accident,G,95,1,1,2,2,2,1
+multi-car collision,A,95,2,1,2,2,3,2
+multi-car collision,S,95,2,1,2,2,3,2
+multi-car collision,GP,90,2,1,3,1,2,1
+multi-car collision,G,90,2,1,3,1,2,1
