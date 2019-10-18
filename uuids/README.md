@@ -9,6 +9,7 @@ Let's assume certificate `cert.pem` and its key `key.pem` are present under this
 Build and run container:
 
 
+    cd ids-tls/
     docker build -t ids:1-tls . 
     docker run -d -p 5443:5000 -e "NODE_NAME=ids-1" -v /home/opc/ids-certs:/certs  --name ids-1 ids:1-tls
 
