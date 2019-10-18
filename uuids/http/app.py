@@ -8,7 +8,7 @@ import logging
 app = flask.Flask(__name__)
 
 
-@app.route('/uuids', methods=['GET'])
+@app.route('/ids', methods=['GET'])
 def get_uuids():
     node_name = os.getenv('NODE_NAME', socket.gethostname())
     generated_uuid = uuid.uuid1()
