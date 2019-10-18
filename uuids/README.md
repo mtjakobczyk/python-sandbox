@@ -5,10 +5,8 @@ Build image
     
 
 ### ids-tls
-Let's assume: 
-- certificate is available under this path: `/home/opc/ids-certs/cert.pem` 
-- certificate key is available under this path: `/home/opc/ids-certs/key.pem` 
-text
+Let's assume certificate `cert.pem` and its key `key.pem` are present under this path: `/home/opc/ids-certs/`  
+Build and run container:
 
 
     docker build -t ids:1-tls . 
